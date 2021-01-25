@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import EarthView from '../components/EarthView.component';
+import EarthView from '../components/EarthView/EarthView.component';
 
 const GlobalStyle = createGlobalStyle`
   html, body, #___gatsby, #gatsby-focus-wrapper {
