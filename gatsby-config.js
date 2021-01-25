@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "Starlink Map",
+    title: 'Starlink Map',
   },
-  plugins: ["gatsby-plugin-styled-components"],
+  plugins: ['gatsby-plugin-styled-components', `gatsby-plugin-pnpm`],
 };
