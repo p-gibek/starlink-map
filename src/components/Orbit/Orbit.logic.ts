@@ -1,11 +1,17 @@
-import { Euler } from 'react-three-fiber';
+import { MathUtils, Quaternion, Vector3 } from 'three';
 
-export const getOrbitObjectRotation = (
-  inclination: number,
-  RAAN: number,
-): Euler => {
-  const x = (Math.PI / 180) * (inclination + 90);
-  const y = (Math.PI / 180) * (RAAN + 90);
+const getOrbitQuaternion = (inclination: number, RAAN: number): Quaternion => {
+  const xQuaternion = new Quaternion().setFromAxisAngle(
+    new Vector3(1, 0, 0),
+    MathUtils.degToRad(inclination - 90),
+  );
 
-  return [x, y, 0];
+  const yQuaternion = new Quaternion().setFromAxisAngle(
+    new Vector3(0, 1, 0),
+    MathUtils.degToRad(RAAN - 90),
+  );
+
+  return xQuaternion.premultiply(yQuaternion);
 };
+
+export default getOrbitQuaternion;

@@ -10,6 +10,8 @@ const GlobalStyle = createGlobalStyle`
   
   body {
     background: black;
+    font-family: sans-serif;
+    margin: 0;
   }
 `;
 
