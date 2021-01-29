@@ -9,6 +9,10 @@ export interface OrbitProps {
   RAOfAscNode: number;
 }
 
+const ORBIT_TUBULAR_SEGMENTS = 200;
+const ORBIT_RADIAL_SEGMENTS = 3;
+const ORBIT_TUBE_SIZE = 5;
+
 const Orbit: React.FC<OrbitProps> = ({
   altitude = 0,
   inclination = 0,
@@ -21,7 +25,14 @@ const Orbit: React.FC<OrbitProps> = ({
 
   return (
     <mesh quaternion={quaternion}>
-      <torusBufferGeometry args={[EARTH_RADIUS + altitude, 5, 3, 100]} />
+      <torusBufferGeometry
+        args={[
+          EARTH_RADIUS + altitude,
+          ORBIT_TUBE_SIZE,
+          ORBIT_RADIAL_SEGMENTS,
+          ORBIT_TUBULAR_SEGMENTS,
+        ]}
+      />
       <meshBasicMaterial color="white" />
     </mesh>
   );
