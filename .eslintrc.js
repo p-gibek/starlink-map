@@ -7,5 +7,6 @@ module.exports = {
     'react/prop-types': 'off',
     'object-curly-newline': 'off',
     '@typescript-eslint/indent': 'off',
+    'implicit-arrow-linebreak': 'off',
   },
 };

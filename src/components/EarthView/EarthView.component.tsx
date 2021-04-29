@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { Canvas } from 'react-three-fiber';
 import { Vector3 } from 'three';
+import { useEffect, useMemo, useState } from 'react';
+import { EciVec3, Kilometer, propagate } from 'satellite.js';
 import Earth from '../Earth/Earth.component';
-import Controls, {
-  CAMERA_ORBIT_MAX_DISTANCE,
-} from '../Controls/Controls.component';
+import Controls, { CAMERA_ORBIT_MAX_DISTANCE } from '../Controls/Controls.component';
 import Orbit from '../Orbit/Orbit.component';
+import Satellite from '../Satellite/Satellite.component';
+import SatelliteData from '../../interfaces/satellite-data.interface';
+import SatelliteRecord from '../../interfaces/satellite-record.interface';
+import { mapSatelliteDataToRecord } from './EarthView.logic';
+import SatellitePosition from '../../interfaces/satellite-position.interface';
 
 const AMBIENT_LIGHT_INTENSITY = 0.1;
 const SUN_LIGHT_INTENSITY = 0.9;
@@ -39,23 +44,56 @@ const MOCK_ORBITS = [
   { key: 24, inclination: 53, RAOfAscNode: 345 },
 ];
 
-const EarthView: React.FC = () => (
-  <Canvas camera={{ far: CAMERA_ORBIT_MAX_DISTANCE }}>
-    <Controls />
+interface EarthViewProps {
+  satelliteData: SatelliteData[];
+}
 
-    <ambientLight intensity={AMBIENT_LIGHT_INTENSITY} />
-    <pointLight position={SUN_POSITION} intensity={SUN_LIGHT_INTENSITY} />
+const EarthView: React.FC<EarthViewProps> = ({ satelliteData = [] }) => {
+  const satellites = useMemo<SatelliteRecord[]>(() => mapSatelliteDataToRecord(satelliteData), [
+    satelliteData,
+  ]);
 
-    <Earth position={EARTH_POSITION} />
-    {MOCK_ORBITS.map((orbit) => (
-      <Orbit
-        key={orbit.key}
-        altitude={442}
-        inclination={orbit.inclination}
-        RAOfAscNode={orbit.RAOfAscNode}
-      />
-    ))}
-  </Canvas>
-);
+  const [satellitePositions, setSatellitePositions] = useState<SatellitePosition[]>([]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+
+      setSatellitePositions(
+        satellites
+          .map((satellite) => {
+            const { position } = propagate(satellite.record, now);
+
+            if (!position) return undefined;
+
+            return { key: satellite.noradCatID, position: position as EciVec3<Kilometer> };
+          })
+          .filter((el) => !!el),
+      );
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [satellites]);
+
+  return (
+    <Canvas camera={{ far: CAMERA_ORBIT_MAX_DISTANCE }}>
+      <Controls />
+
+      <ambientLight intensity={AMBIENT_LIGHT_INTENSITY} />
+      <pointLight position={SUN_POSITION} intensity={SUN_LIGHT_INTENSITY} />
+
+      <Earth position={EARTH_POSITION} />
+      {MOCK_ORBITS.map((orbit) => (
+        <Orbit
+          key={orbit.key}
+          altitude={546}
+          inclination={orbit.inclination}
+          RAOfAscNode={orbit.RAOfAscNode}
+        />
+      ))}
+      {satellitePositions.map(({ position, key }) => (
+        <Satellite positionVector={[position.x, position.z, position.y]} key={key} />
+      ))}
+    </Canvas>
+  );
+};
 export default EarthView;
