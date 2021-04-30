@@ -9,8 +9,8 @@ export const EARTH_RADIUS = 6371; // Mean Earth radius in kilometers.
 const EARTH_HORIZONTAL_SEGMENTS = 80;
 const EARTH_VERTICAL_SEGMENTS = 80;
 
-const Earth: React.FC<MeshProps> = ({ position }) => (
-  <mesh position={position}>
+const Earth: React.FC<MeshProps> = ({ position, rotation }) => (
+  <mesh position={position} rotation={rotation}>
     <sphereBufferGeometry
       args={[EARTH_RADIUS, EARTH_HORIZONTAL_SEGMENTS, EARTH_VERTICAL_SEGMENTS]}
     />
