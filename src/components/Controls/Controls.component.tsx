@@ -7,15 +7,13 @@ import { EARTH_RADIUS } from '../Earth/Earth.component';
 extend({ OrbitControls });
 
 export const CAMERA_ORBIT_MIN_DISTANCE = EARTH_RADIUS + 1000;
-export const CAMERA_ORBIT_MAX_DISTANCE = 25000;
+export const CAMERA_ORBIT_MAX_DISTANCE = 45000;
 export const BASE_CAMERA_PAN_SPEED = 0.3;
 export const BASE_CAMERA_ROTATE_SPEED = 0.3;
-export const BASE_CAMERA_ZOOM_SPEED = 0.3;
+export const BASE_CAMERA_ZOOM_SPEED = 0.6;
 
 const Controls: React.FC = () => {
-  const controls = useRef<
-    ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>
-  >();
+  const controls = useRef<ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>>();
 
   const {
     camera,
