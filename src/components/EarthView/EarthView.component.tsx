@@ -18,6 +18,7 @@ const AMBIENT_LIGHT_INTENSITY = 0.1;
 const SUN_LIGHT_INTENSITY = 0.45;
 const SUN_POSITION = new Vector3().setFromSphericalCoords(15000, Math.PI / 2, 1.5);
 const SATELLITES_POSITION_REFRESH_TIME = 1000;
+const INIT_CAMERA_HEIGHT = 30000;
 
 interface EarthViewProps {
   satelliteData: SatelliteData[];
@@ -47,7 +48,9 @@ const EarthView: React.FC<EarthViewProps> = ({ satelliteData = [] }) => {
   }, [satellites]);
 
   return (
-    <Canvas camera={{ far: CAMERA_ORBIT_MAX_DISTANCE, fov: 30 }}>
+    <Canvas
+      camera={{ far: CAMERA_ORBIT_MAX_DISTANCE, fov: 30, position: [0, 0, INIT_CAMERA_HEIGHT] }}
+    >
       <Controls />
 
       <ambientLight intensity={AMBIENT_LIGHT_INTENSITY} />
