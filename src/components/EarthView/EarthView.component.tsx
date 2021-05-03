@@ -13,10 +13,13 @@ import {
   mapSatelliteToSatellitePosition,
 } from './EarthView.logic';
 import SatellitePosition from '../../interfaces/satellite-position.interface';
+import isBrowser from '../../utils/is-browser';
 
 const AMBIENT_LIGHT_INTENSITY = 0.1;
 const SUN_LIGHT_INTENSITY = 0.45;
-const SUN_POSITION = new Vector3().setFromSphericalCoords(15000, Math.PI / 2, 1.5);
+const SUN_POSITION = isBrowser
+  ? new Vector3().setFromSphericalCoords(15000, Math.PI / 2, 1.5)
+  : null;
 const SATELLITES_POSITION_REFRESH_TIME = 1000;
 const INIT_CAMERA_HEIGHT = 30000;
 

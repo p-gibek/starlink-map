@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { extend, ReactThreeFiber, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { EARTH_RADIUS } from '../Earth/Earth.component';
-
-extend({ OrbitControls });
 
 export const CAMERA_ORBIT_MIN_DISTANCE = EARTH_RADIUS + 1000;
 export const CAMERA_ORBIT_MAX_DISTANCE = 45000;
@@ -13,6 +11,10 @@ export const BASE_CAMERA_ROTATE_SPEED = 0.3;
 export const BASE_CAMERA_ZOOM_SPEED = 0.6;
 
 const Controls: React.FC = () => {
+  useEffect(() => {
+    extend({ OrbitControls });
+  }, []);
+
   const controls = useRef<ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>>();
 
   const {

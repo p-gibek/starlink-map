@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { TextureLoader } from 'three';
 import * as earthImage from '../../assets/8k_earth_daymap.jpg';
+import isBrowser from '../../utils/is-browser';
 
-const earthTexture = new TextureLoader().load(earthImage);
+const earthTexture = isBrowser ? new TextureLoader().load(earthImage) : null;
 
 export const EARTH_RADIUS = 6371; // Mean Earth radius in kilometers.
 const EARTH_HORIZONTAL_SEGMENTS = 80;
