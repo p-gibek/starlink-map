@@ -21,4 +21,6 @@ jobs:
           version: 6.2.3
           run_install: true
 
+      - run: pnpm run build
+
       - run: pnpm run deploy
