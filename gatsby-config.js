@@ -8,7 +8,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-        bucketName: 'starlink-map-website',
+        bucketName: `starlink-map-website-${process.env.NODE_ENV}`,
+        region: 'eu-west-1',
+        siteUrl: 'https://dev.starlinkmap.space',
       },
     },
   ],
