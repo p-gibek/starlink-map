@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TextureLoader } from 'three';
-import * as earthImage from '../../assets/8k_earth_daymap.jpg';
+import earthImage from '../../assets/8k_earth_daymap-2.jpg';
 import isBrowser from '../../utils/is-browser';
 
 const earthTexture = isBrowser ? new TextureLoader().load(earthImage) : null;

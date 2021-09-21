@@ -5,7 +5,7 @@ import SatelliteRecord from '../../interfaces/satellite-record.interface';
 import SatellitePosition from '../../interfaces/satellite-position.interface';
 
 const SECONDS_IN_DAY = 86400;
-const SUN_HEIGHT = 150000;
+const SUN_HEIGHT = 1500000;
 
 const getUTCSeconds = (date: Date) =>
   3600 * date.getUTCHours() + 60 * date.getUTCMinutes() + date.getUTCSeconds();

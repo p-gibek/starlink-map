@@ -15,8 +15,8 @@ import {
 } from './EarthView.logic';
 import SatellitePosition from '../../interfaces/satellite-position.interface';
 
-const AMBIENT_LIGHT_INTENSITY = 0.1;
-const SUN_LIGHT_INTENSITY = 0.3;
+const AMBIENT_LIGHT_INTENSITY = 0.15;
+const SUN_LIGHT_INTENSITY = 1;
 const SATELLITES_POSITION_REFRESH_TIME = 1000;
 const INIT_CAMERA_HEIGHT = 30000;
 const CAMERA_FOV = 30;
